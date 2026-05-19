@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Showcase</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial;
+      }
+
+      body {
+        background: #0b1220;
+        padding: 40px;
+        overflow-x: hidden;
+        color: white;
+      }
+
+      .background {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .background span {
+        position: absolute;
+        display: block;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        animation: float 20s linear infinite;
+      }
+
+      .background span:nth-child(1) {
+        width: 220px;
+        height: 220px;
+        left: 10%;
+        top: 20%;
+      }
+
+      .background span:nth-child(2) {
+        width: 280px;
+        height: 280px;
+        left: 70%;
+        top: 60%;
+        animation-duration: 25s;
+      }
+
+      .background span:nth-child(3) {
+        width: 180px;
+        height: 180px;
+        left: 40%;
+        top: 10%;
+        animation-duration: 15s;
+      }
+
+      .background span:nth-child(4) {
+        width: 240px;
+        height: 240px;
+        left: 20%;
+        top: 80%;
+        animation-duration: 30s;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+          transform: translateY(-50px) rotate(180deg);
+        }
+
+        100% {
+          transform: translateY(0px) rotate(360deg);
+        }
+      }
+
+      .title {
+        text-align: center;
+        font-size: 46px;
+        margin-bottom: 35px;
+        letter-spacing: 4px;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 25px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 22px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        position: relative;
+        transition: 0.4s;
+      }
+
+      .card:hover {
+        transform: translateY(-7px);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.14),
+          transparent 70%
+        );
+        left: var(--x);
+        top: var(--y);
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: 0.3s;
+        pointer-events: none;
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .header {
+        padding: 20px;
+        font-size: 22px;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        color: white;
+        transition: 0.3s;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: #56ccf2;
+        box-shadow: 0 0 15px rgba(86, 204, 242, 0.3);
+      }
+
+      textarea {
+        height: 120px;
+        resize: none;
+      }
+
+      button {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(45deg, #4facfe, #00f2fe);
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+      }
+
+      .flex {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .code {
+        display: none;
+        background: #060b16;
+        padding: 20px;
+        color: #00ffae;
+        font-size: 13px;
+        white-space: pre-wrap;
+        overflow: auto;
+      }
+
+      .show {
+        display: block;
+      }
+
+      @media (max-width: 700px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="title">INPUT SHOWCASE</div>
+
+    <div class="container">
+      <div class="card">
+        <div class="header">Basic Inputs</div>
+
+        <table>
+          <tr>
+            <td>Text</td>
+            <td><input type="text" /></td>
+          </tr>
+
+          <tr>
+            <td>Password</td>
+            <td><input type="password" /></td>
+          </tr>
+
+          <tr>
+            <td>Email</td>
+            <td><input type="email" /></td>
+          </tr>
+
+          <tr>
+            <td>Number</td>
+            <td><input type="number" /></td>
+          </tr>
+
+          <tr>
+            <td>Search</td>
+            <td><input type="search" /></td>
+          </tr>
+
+          <tr>
+            <td>Telephone</td>
+            <td><input type="tel" /></td>
+          </tr>
+
+          <tr>
+            <td>URL</td>
+            <td><input type="url" /></td>
+          </tr>
+
+          <tr>
+            <td>Hidden</td>
+            <td>
+              <input type="hidden" />
+              Gizli Input
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c1')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c1">
+          &lt;input type="text"&gt; &lt;input type="password"&gt; &lt;input
+          type="email"&gt; &lt;input type="number"&gt; &lt;input
+          type="search"&gt; &lt;input type="tel"&gt; &lt;input type="url"&gt;
+          &lt;input type="hidden"&gt;
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">Date Inputs</div>
+
+        <table>
+          <tr>
+            <td>Date</td>
+            <td><input type="date" /></td>
+          </tr>
+
+          <tr>
+            <td>Time</td>
+            <td><input type="time" /></td>
+          </tr>
+
+          <tr>
+            <td>Week</td>
+            <td><input type="week" /></td>
+          </tr>
+
+          <tr>
+            <td>Month</td>
+            <td><input type="month" /></td>
+          </tr>
+
+          <tr>
+            <td>Datetime</td>
+            <td><input type="datetime-local" /></td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c2')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c2">
+          &lt;input type="date"&gt; &lt;input type="time"&gt; &lt;input
+          type="week"&gt; &lt;input type="month"&gt; &lt;input
+          type="datetime-local"&gt;
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">Checkbox & Radio</div>
+
+        <table>
+          <tr>
+            <td>Checkbox</td>
+
+            <td class="flex">
+              <label><input type="checkbox" /> HTML</label>
+
+              <label><input type="checkbox" /> CSS</label>
+
+              <label><input type="checkbox" /> JS</label>
+
+              <label><input type="checkbox" /> React</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Radio</td>
+
+            <td class="flex">
+              <label><input type="radio" name="g" /> Male</label>
+
+              <label><input type="radio" name="g" /> Female</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c3')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c3">
+          &lt;input type="checkbox"&gt; &lt;input type="radio"&gt;
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">Special Inputs</div>
+
+        <table>
+          <tr>
+            <td>Color</td>
+            <td><input type="color" /></td>
+          </tr>
+
+          <tr>
+            <td>Range</td>
+            <td><input type="range" /></td>
+          </tr>
+
+          <tr>
+            <td>File</td>
+            <td><input type="file" /></td>
+          </tr>
+
+          <tr>
+            <td>Multiple File</td>
+            <td><input type="file" multiple /></td>
+          </tr>
+
+          <tr>
+            <td>Image Upload</td>
+            <td><input type="file" accept="image/*" /></td>
+          </tr>
+
+          <tr>
+            <td>Video Upload</td>
+            <td><input type="file" accept="video/*" /></td>
+          </tr>
+
+          <tr>
+            <td>Audio Upload</td>
+            <td><input type="file" accept="audio/*" /></td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c4')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c4">
+          &lt;input type="color"&gt; &lt;input type="range"&gt; &lt;input
+          type="file"&gt; &lt;input type="file" multiple&gt; &lt;input
+          type="file" accept="image/*"&gt; &lt;input type="file"
+          accept="video/*"&gt; &lt;input type="file" accept="audio/*"&gt;
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">Validation Inputs</div>
+
+        <table>
+          <tr>
+            <td>Required</td>
+            <td><input type="text" required /></td>
+          </tr>
+
+          <tr>
+            <td>Readonly</td>
+            <td><input type="text" value="Readonly" readonly /></td>
+          </tr>
+
+          <tr>
+            <td>Disabled</td>
+            <td><input type="text" value="Disabled" disabled /></td>
+          </tr>
+
+          <tr>
+            <td>Min</td>
+            <td><input type="number" min="5" /></td>
+          </tr>
+
+          <tr>
+            <td>Max</td>
+            <td><input type="number" max="100" /></td>
+          </tr>
+
+          <tr>
+            <td>Step</td>
+            <td><input type="number" step="0.5" /></td>
+          </tr>
+
+          <tr>
+            <td>Pattern</td>
+            <td><input type="text" pattern="[A-Za-z]{3}" /></td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c5')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c5">
+          &lt;input required&gt; &lt;input readonly&gt; &lt;input disabled&gt;
+          &lt;input min="5"&gt; &lt;input max="100"&gt; &lt;input step="0.5"&gt;
+          &lt;input pattern=""&gt;
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">Select & Textarea</div>
+
+        <table>
+          <tr>
+            <td>Select</td>
+
+            <td>
+              <select>
+                <option>Azerbaijan</option>
+                <option>Turkey</option>
+                <option>Germany</option>
+                <option>Japan</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Datalist</td>
+
+            <td>
+              <input list="browser" />
+
+              <datalist id="browser">
+                <option value="Chrome"></option>
+                <option value="Firefox"></option>
+                <option value="Opera"></option>
+              </datalist>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Textarea</td>
+            <td><textarea></textarea></td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c6')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c6">
+          &lt;select&gt;&lt;/select&gt; &lt;datalist&gt;&lt;/datalist&gt;
+          &lt;textarea&gt;&lt;/textarea&gt;
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">HTML5 Elements</div>
+
+        <table>
+          <tr>
+            <td>Progress</td>
+            <td><progress value="70" max="100"></progress></td>
+          </tr>
+
+          <tr>
+            <td>Meter</td>
+            <td><meter value="0.7"></meter></td>
+          </tr>
+
+          <tr>
+            <td>Output</td>
+            <td><output>Output</output></td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c7')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c7">
+          &lt;progress&gt;&lt;/progress&gt; &lt;meter&gt;&lt;/meter&gt;
+          &lt;output&gt;&lt;/output&gt;
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header">Complex Form</div>
+
+        <table>
+          <tr>
+            <td>Full Name</td>
+            <td><input type="text" /></td>
+          </tr>
+
+          <tr>
+            <td>Email</td>
+            <td><input type="email" /></td>
+          </tr>
+
+          <tr>
+            <td>Password</td>
+            <td><input type="password" /></td>
+          </tr>
+
+          <tr>
+            <td>Date</td>
+            <td><input type="date" /></td>
+          </tr>
+
+          <tr>
+            <td>Color</td>
+            <td><input type="color" /></td>
+          </tr>
+
+          <tr>
+            <td>Range</td>
+            <td><input type="range" /></td>
+          </tr>
+
+          <tr>
+            <td>Skills</td>
+
+            <td class="flex">
+              <label><input type="checkbox" /> HTML</label>
+              <label><input type="checkbox" /> CSS</label>
+              <label><input type="checkbox" /> JS</label>
+              <label><input type="checkbox" /> React</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Message</td>
+            <td><textarea></textarea></td>
+          </tr>
+
+          <tr>
+            <td>Upload CV</td>
+            <td><input type="file" /></td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <button onclick="toggleCode('c8')">Kodlari Göst?r</button>
+            </td>
+          </tr>
+        </table>
+
+        <div class="code" id="c8">
+          &lt;input type="text"&gt; &lt;input type="email"&gt; &lt;input
+          type="password"&gt; &lt;input type="date"&gt; &lt;input
+          type="color"&gt; &lt;input type="range"&gt; &lt;input
+          type="checkbox"&gt; &lt;textarea&gt;&lt;/textarea&gt; &lt;input
+          type="file"&gt;
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleCode(id) {
+        let code = document.getElementById(id);
+
+        code.classList.toggle("show");
+      }
+
+      const cards = document.querySelectorAll(".card");
+
+      cards.forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+
+          const x = e.clientX - rect.left;
+
+          const y = e.clientY - rect.top;
+
+          card.style.setProperty("--x", x + "px");
+
+          card.style.setProperty("--y", y + "px");
+        });
+      });
+    </script>
+  </body>
+</html>
